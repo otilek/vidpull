@@ -3,6 +3,7 @@ import { DownloaderCard } from "@/components/DownloaderCard";
 import { PlatformIconGrid } from "@/components/PlatformBadge";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQ } from "@/components/FAQ";
+import { Pricing } from "@/components/Pricing";
 import { Download } from "lucide-react";
 
 const Index = () => {
