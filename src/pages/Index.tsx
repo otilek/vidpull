@@ -6,11 +6,13 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { FAQ } from "@/components/FAQ";
 import { Pricing } from "@/components/Pricing";
 import { AuthModal } from "@/components/AuthModal";
-import { Download } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Download, LogOut, User } from "lucide-react";
 
 const Index = () => {
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<"login" | "signup">("login");
+  const { user, loading, signOut } = useAuth();
 
   const openLogin = () => { setAuthTab("login"); setAuthOpen(true); };
   const openSignup = () => { setAuthTab("signup"); setAuthOpen(true); };
@@ -67,28 +69,63 @@ const Index = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse inline-block mr-1" />
               Free & Fast
             </div>
-            <button
-              onClick={openLogin}
-              className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-80"
-              style={{
-                color: "hsl(var(--foreground))",
-                background: "hsl(var(--muted) / 0.5)",
-                border: "1px solid hsl(var(--border))",
-              }}
-            >
-              Log In
-            </button>
-            <button
-              onClick={openSignup}
-              className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-90 active:scale-95"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
-                color: "hsl(var(--primary-foreground))",
-                boxShadow: "0 2px 14px hsl(var(--primary) / 0.35)",
-              }}
-            >
-              Sign Up
-            </button>
+
+            {!loading && (
+              user ? (
+                <div className="flex items-center gap-2">
+                  <div
+                    className="flex items-center gap-2 text-sm px-3 py-2 rounded-xl"
+                    style={{
+                      background: "hsl(var(--muted) / 0.5)",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--foreground))",
+                    }}
+                  >
+                    <User size={14} />
+                    <span className="hidden sm:inline max-w-[120px] truncate text-xs">
+                      {user.user_metadata?.full_name || user.email}
+                    </span>
+                  </div>
+                  <button
+                    onClick={signOut}
+                    className="flex items-center gap-1.5 text-sm font-semibold px-3 py-2 rounded-xl transition-all duration-150 hover:opacity-80"
+                    style={{
+                      color: "hsl(var(--muted-foreground))",
+                      background: "hsl(var(--muted) / 0.5)",
+                      border: "1px solid hsl(var(--border))",
+                    }}
+                  >
+                    <LogOut size={14} />
+                    <span className="hidden sm:inline">Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={openLogin}
+                    className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-80"
+                    style={{
+                      color: "hsl(var(--foreground))",
+                      background: "hsl(var(--muted) / 0.5)",
+                      border: "1px solid hsl(var(--border))",
+                    }}
+                  >
+                    Log In
+                  </button>
+                  <button
+                    onClick={openSignup}
+                    className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-90 active:scale-95"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
+                      color: "hsl(var(--primary-foreground))",
+                      boxShadow: "0 2px 14px hsl(var(--primary) / 0.35)",
+                    }}
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )
+            )}
           </div>
         </nav>
 
@@ -147,7 +184,7 @@ const Index = () => {
         <HowItWorks />
 
         {/* Pricing */}
-        <Pricing />
+        <Pricing onGetStarted={user ? undefined : openSignup} />
 
         {/* FAQ */}
         <FAQ />
@@ -160,9 +197,7 @@ const Index = () => {
             borderTop: "1px solid hsl(var(--border))",
           }}
         >
-          <p>
-            VidPull — For personal use only. Respect copyright and platform terms of service.
-          </p>
+          <p>VidPull — For personal use only. Respect copyright and platform terms of service.</p>
           <p className="mt-1">© {new Date().getFullYear()} VidPull. All rights reserved.</p>
         </footer>
       </div>

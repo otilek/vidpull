@@ -63,7 +63,7 @@ const plans = [
   },
 ];
 
-export const Pricing = () => {
+export const Pricing = ({ onGetStarted }: { onGetStarted?: () => void }) => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-5xl mx-auto">
@@ -191,6 +191,7 @@ export const Pricing = () => {
 
                 {/* CTA */}
                 <button
+                  onClick={onGetStarted}
                   className="w-full py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:opacity-90 active:scale-95 mb-6"
                   style={
                     plan.highlight
