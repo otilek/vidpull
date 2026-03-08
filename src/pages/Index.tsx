@@ -1,12 +1,20 @@
+import { useState } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { DownloaderCard } from "@/components/DownloaderCard";
 import { PlatformIconGrid } from "@/components/PlatformBadge";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQ } from "@/components/FAQ";
 import { Pricing } from "@/components/Pricing";
+import { AuthModal } from "@/components/AuthModal";
 import { Download } from "lucide-react";
 
 const Index = () => {
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<"login" | "signup">("login");
+
+  const openLogin = () => { setAuthTab("login"); setAuthOpen(true); };
+  const openSignup = () => { setAuthTab("signup"); setAuthOpen(true); };
+
   return (
     <div
       className="min-h-screen relative"
