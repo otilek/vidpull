@@ -63,7 +63,7 @@ const plans = [
   },
 ];
 
-export const Pricing = () => {
+export const Pricing = ({ onGetStarted }: { onGetStarted?: () => void }) => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-5xl mx-auto">
