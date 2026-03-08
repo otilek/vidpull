@@ -54,17 +54,46 @@ const Index = () => {
               VidPull
             </span>
           </div>
-          <div className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-medium"
-            style={{
-              background: "hsl(var(--primary) / 0.1)",
-              border: "1px solid hsl(var(--primary) / 0.3)",
-              color: "hsl(var(--primary))",
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse inline-block mr-1" />
-            Free & Fast
+
+          {/* Nav right */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-medium"
+              style={{
+                background: "hsl(var(--primary) / 0.1)",
+                border: "1px solid hsl(var(--primary) / 0.3)",
+                color: "hsl(var(--primary))",
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse inline-block mr-1" />
+              Free & Fast
+            </div>
+            <button
+              onClick={openLogin}
+              className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-80"
+              style={{
+                color: "hsl(var(--foreground))",
+                background: "hsl(var(--muted) / 0.5)",
+                border: "1px solid hsl(var(--border))",
+              }}
+            >
+              Log In
+            </button>
+            <button
+              onClick={openSignup}
+              className="text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 hover:opacity-90 active:scale-95"
+              style={{
+                background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
+                color: "hsl(var(--primary-foreground))",
+                boxShadow: "0 2px 14px hsl(var(--primary) / 0.35)",
+              }}
+            >
+              Sign Up
+            </button>
           </div>
         </nav>
+
+        {/* Auth Modal */}
+        <AuthModal open={authOpen} defaultTab={authTab} onClose={() => setAuthOpen(false)} />
 
         {/* Hero */}
         <section className="text-center px-4 pt-16 pb-12">
