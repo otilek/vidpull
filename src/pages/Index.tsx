@@ -109,6 +109,9 @@ const Index = () => {
         {/* How it works */}
         <HowItWorks />
 
+        {/* Pricing */}
+        <Pricing />
+
         {/* FAQ */}
         <FAQ />
 
